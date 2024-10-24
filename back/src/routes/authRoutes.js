@@ -58,7 +58,7 @@ router.post('/signup', async (req, res) => {
     };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-    res.status(201).json({ success: true , token, message: 'User created successfully', user: newUser });
+    res.status(200).json({ success: true , token, message: 'User created successfully', user: newUser });
   } catch (error) {
     res.status(400).json({ message: 'Error creating user', error: error.message });
   }
