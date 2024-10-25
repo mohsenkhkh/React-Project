@@ -14,8 +14,8 @@ router.post('/login', async (req, res) => {
   try {
     // Check if the user exists
     const user = await User.findOne({email})
+
     if (!user) {
-      console.log(' user ', user)
       return res.status(400).json({ success: false, message: 'Invalid email or password' });
     }
 
@@ -31,11 +31,10 @@ router.post('/login', async (req, res) => {
         email: user.email
       },
     };
-
+    const first_name= user.first_name
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
-
     // Send the token back to the client
-    res.json({ success: true, token });
+    res.json({ success: true, token , email ,first_name });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
